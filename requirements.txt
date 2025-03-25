@@ -1,0 +1,7 @@
+
+Flask
+yfinance
+python-dotenv
+google-generativeai
+langchain
+langchain_groq
