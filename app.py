@@ -1,18 +1,20 @@
 import os
 import yfinance as yf
 from flask import Flask, request, jsonify
+from flask_cors import CORS  # Import CORS
 from langchain_groq import ChatGroq
 import google.generativeai as genai
 from dotenv import load_dotenv
 
 # Load API keys from .env
 load_dotenv(dotenv_path=".env")
-GROQ_API_KEY =os.getenv("GROQ_API_KEY")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-print("Loaded GROQ_API_KEY:", os.getenv("GROQ_API_KEY"))
+#print("Loaded GROQ_API_KEY:", os.getenv("GROQ_API_KEY"))
 
 # Initialize Flask app
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes
 
 # Initialize LLMs
 groq_llm = ChatGroq(model="Llama-3.3-70b-Versatile", api_key=GROQ_API_KEY)
@@ -97,4 +99,4 @@ def get_stock():
 
 # Run the API
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)
